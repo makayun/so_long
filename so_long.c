@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:08 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/13 13:30:15 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:00:03 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ int    check_input(int argc)
 {
     if (argc <= 1)
     {
-        printf("Please, choose any map and try again");
+        ft_printf("Please, choose any map and try again");
         exit (0);
         return (0);
     }
+    else
+        return (1);
 }
 
 int kill_it_w_fire(t_data *data)
@@ -33,7 +35,7 @@ int kill_it_w_fire(t_data *data)
 
 int key_handle(int keysym, t_data *data)
 {
-    printf("Pressed key: %d\n", keysym);
+    ft_printf("Pressed key: %d\n", keysym);
     if (keysym == XK_Escape)
         kill_it_w_fire(data);
     return (0);

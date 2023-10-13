@@ -6,7 +6,7 @@
 #    By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/18 12:43:00 by mmakagon          #+#    #+#              #
-#    Updated: 2023/10/13 13:18:21 by mmakagon         ###   ########.fr        #
+#    Updated: 2023/10/13 13:52:11 by mmakagon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,16 +79,20 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
 
 all: $(NAME)
+	@echo "Done!"
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 
 clean:
 	$(RM) $(OBJS)
+	@echo "Cleaned!"
 
 fclean: clean
 	$(RM) $(NAME)
+	@echo "AND THE LIBRARY!!!"
 
 re: clean all
+	@echo "Dej pokoj!"
 
 .PHONY: all clean fclean re
