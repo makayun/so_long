@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:08 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/13 14:00:03 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:43:40 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,42 @@ int    check_input(int argc)
         exit (0);
         return (0);
     }
+    else if (argc > 2)
+    {
+        ft_printf("Too much arguments, try again!");
+        exit (0);
+        return (0);
+    }
     else
         return (1);
+}
+
+int	check_map(t_map *map, char *filename)
+{
+	int		fd;
+	char	*line;
+	size_t	lenght;
+
+	fd = open (filename, O_RDONLY);
+	line = get_next_line(fd);
+	lenght = ft_strlen(line);
+	map -> blocks_x = 1;
+	ft_printf ("%s", line);
+	free (line);
+	while (1)
+	{
+		line = get_next_line(fd);
+		map -> blocks_x += 1;
+		if (strchr(line, '\n') && lenght != ft_strlen(line))
+			return (1);
+		ft_printf ("%s", line);
+		if (!strchr(line, '\n'))
+			break ;
+		lenght = ft_strlen(line);
+		free (line);
+	}
+	map -> blocks_y = lenght - 1;
+	return (0);
 }
 
 int kill_it_w_fire(t_data *data)
@@ -47,19 +81,19 @@ void map_read(t_map *map) // complete me!!!
     map -> blocks_y = 1;
 }
 
-void    map_render(t_map map, t_data *data)
+void    map_render(t_map *map, t_data *data)
 {
     size_t  canvas_x;
     size_t  canvas_y;
     size_t  i;
     t_image block;
 
-    canvas_x = (WIDTH - BLOCK_SIDE * map.blocks_x) / 2;
-    canvas_y = (HEIGHT - BLOCK_SIDE * map.blocks_y) / 2;
+    canvas_x = (WIDTH - BLOCK_SIDE * map -> blocks_x) / 2;
+    canvas_y = (HEIGHT - BLOCK_SIDE * map -> blocks_y) / 2;
     i = 0;
     if ((block.img = mlx_xpm_file_to_image(data -> mlx, "./assets/block", &block.width, &block.height)))
     {
-        while (i < map.blocks_x)
+        while (i < map -> blocks_x)
             mlx_put_image_to_window(data -> mlx, data -> win, block.img, (canvas_x + (i++ * BLOCK_SIDE)), canvas_y);
     }
 }
@@ -71,7 +105,11 @@ int main(int argc, char **argv)
     t_map   map;
 
     check_input (argc);
-    // check_map();
+    if (check_map(&map, argv[1]) == MLX_ERROR)
+    {
+        ft_printf ("Invalid map!!!");
+        exit (0);
+    }
     if(!(data.mlx = mlx_init()))
         return (MLX_ERROR);
     if(!(data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "come on baby, light my fire")))
@@ -79,7 +117,7 @@ int main(int argc, char **argv)
     if((background.img = mlx_xpm_file_to_image(data.mlx, "./assets/background", &background.width, &background.height)))
         mlx_put_image_to_window(data.mlx, data.win, background.img, 0, 0);
     map_read(&map); // complete later
-    map_render(map, &data);
+    map_render(&map, &data);
     mlx_key_hook (data.win, key_handle, &data);
     mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &kill_it_w_fire, &data);
     mlx_loop(data.mlx);

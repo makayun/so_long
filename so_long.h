@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/13 13:30:25 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:32:40 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_image {
 }               t_image;
 
 typedef struct s_map {
+    char    **map;
     size_t  blocks_x;
     size_t  blocks_y;
 }               t_map;
