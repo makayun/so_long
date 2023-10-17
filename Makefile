@@ -1,12 +1,12 @@
 NAME = game
 UNAME = $(shell uname -s)
-CC = clang
+CC = @clang
 CFLAGS = -Wall -Wextra -Werror
 MLX_DIR = ./mlx
 MLX_LIB = $(MLX_DIR)/libmlx.a
 LIBFT_DIR = ./libft_plus
 LIBFT_LIB = $(LIBFT_DIR)/libft_plus.a
-RM = rm -rf
+RM = @rm -rf
 
 ifeq ($(UNAME),Darwin)
 MLX_FLAGS = -L./mlx -lmlx -framework OpenGL -framework AppKit -I/opt/X11/include -L/usr/X11/lib -lXext -lX11 -L./libft_plus -lft_plus
@@ -26,26 +26,28 @@ OBJS_DIR = ./
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 %.o: %.c $(FILES)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
+	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)
 
 all: $(NAME)
 
-$(NAME): make_libft make_mlx $(OBJS)
+$(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
 
-make_libft:
-	make -C $(LIBFT_DIR)
+$(LIBFT_LIB):
+	@make -C $(LIBFT_DIR)
 
-make_mlx:
-	make -C $(MLX_DIR)
+$(MLX_LIB):
+	@make -C $(MLX_DIR)
 
 clean:
 	$(RM) $(OBJS) $(NAME)
 
 fclean: clean
-	make fclean -C $(LIBFT_DIR)
-	make clean -C $(MLX_DIR)
+	@make fclean -C $(LIBFT_DIR)
+	@make clean -C $(MLX_DIR)
 
 re: clean all
 
-.PHONY: all make_libft make_mlx clean
+fre: fclean all
+
+.PHONY: all clean fclean re fre
