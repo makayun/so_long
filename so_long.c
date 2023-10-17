@@ -12,52 +12,6 @@
 
 #include "so_long.h"
 
-int    check_input(int argc)
-{
-    if (argc <= 1)
-    {
-        ft_printf("Please, choose any map and try again");
-        exit (0);
-        return (0);
-    }
-    else if (argc > 2)
-    {
-        ft_printf("Too much arguments, try again!");
-        exit (0);
-        return (0);
-    }
-    else
-        return (1);
-}
-
-int	check_map(t_map *map, char *filename)
-{
-	int		fd;
-	char	*line;
-	size_t	lenght;
-
-	fd = open (filename, O_RDONLY);
-	line = get_next_line(fd);
-	lenght = ft_strlen(line);
-	map -> blocks_x = 1;
-	ft_printf ("%s", line);
-	free (line);
-	while (1)
-	{
-		line = get_next_line(fd);
-		map -> blocks_x += 1;
-		if (strchr(line, '\n') && lenght != ft_strlen(line))
-			return (1);
-		ft_printf ("%s", line);
-		if (!strchr(line, '\n'))
-			break ;
-		lenght = ft_strlen(line);
-		free (line);
-	}
-	map -> blocks_y = lenght - 1;
-	return (0);
-}
-
 int kill_it_w_fire(t_data *data)
 {
     mlx_destroy_window(data -> mlx, data ->win);
@@ -104,12 +58,7 @@ int main(int argc, char **argv)
     t_image background;
     t_map   map;
 
-    check_input (argc);
-    if (check_map(&map, argv[1]) == MLX_ERROR)
-    {
-        ft_printf ("Invalid map!!!");
-        exit (0);
-    }
+    run_checks(argc, &map, argv[1]);
     if(!(data.mlx = mlx_init()))
         return (MLX_ERROR);
     if(!(data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "come on baby, light my fire")))

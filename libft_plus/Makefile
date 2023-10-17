@@ -76,7 +76,7 @@ OBJS_DIR = ./
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 %.o: %.c $(SRCS)
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 all: $(NAME)
 	@echo "Done!"
@@ -86,11 +86,11 @@ $(NAME): $(OBJS)
 
 clean:
 	$(RM) $(OBJS)
-	@echo "Cleaned!"
+	@echo "LIBFT objects cleaned!"
 
 fclean: clean
 	$(RM) $(NAME)
-	@echo "AND THE LIBRARY!!!"
+	@echo "AND THE LIBFT LIBRARY FILE!!!"
 
 re: clean all
 	@echo "Dej pokoj!"
