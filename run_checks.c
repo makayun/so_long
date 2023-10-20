@@ -62,7 +62,7 @@ int	check_map_width (t_map *map, char *filename)
 	fd = open (filename, O_RDONLY);
 	map->map[i] = get_next_line(fd, 0);
 	lenght = ft_strlen (map->map[i]);
-	while (++i < map->blocks_y || (map->map[i]))
+	while (++i < map->blocks_y && (map->map[i]))
 	{
 		map->map[i] = get_next_line(fd, 0);
 		if (lenght != ft_strlen (map->map[i]))
