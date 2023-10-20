@@ -35,7 +35,7 @@ char	*gnl_next(char *buffer)
 	return (line);
 }
 
-char	*gnl_line(char *buffer)
+char	*gnl_line(char *buffer, int with_n_or_not)
 {
 	char	*line;
 	size_t	i;
@@ -45,7 +45,10 @@ char	*gnl_line(char *buffer)
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	line = (char *)ft_calloc((i + 2), sizeof(char));
+	if (with_n_or_not)
+		line = (char *)ft_calloc((i + 2), sizeof(char));
+	else
+		line = (char *)ft_calloc((i + 1), sizeof(char));
 	if (!line)
 		return (free(buffer), NULL);
 	i = 0;
@@ -54,7 +57,7 @@ char	*gnl_line(char *buffer)
 		line[i] = buffer[i];
 		i++;
 	}
-	if (buffer[i] && buffer[i] == '\n')
+	if (buffer[i] && buffer[i] == '\n' && with_n_or_not)
 		line[i] = '\n';
 	return (line);
 }
@@ -106,7 +109,7 @@ char	*gnl_read_file(int fd, char *src)
 	return (src);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int with_n_or_not)
 {
 	static char	*buffer;
 	char		*line;
@@ -116,7 +119,7 @@ char	*get_next_line(int fd)
 	buffer = gnl_read_file(fd, buffer);
 	if (!buffer)
 		return (NULL);
-	line = gnl_line(buffer);
+	line = gnl_line(buffer, with_n_or_not);
 	buffer = gnl_next(buffer);
 	return (line);
 }

@@ -88,9 +88,9 @@ int			pf_ptr_len(uintptr_t num);
 int			pf_print_unsigned(va_list args);
 char		*pf_unsigned_itoa(unsigned int n);
 int			pf_print_hex(va_list args, const char format);
-char		*get_next_line(int fd);
+char		*get_next_line(int fd, int with_n_or_not);
 char		*gnl_next(char *buffer);
-char		*gnl_line(char *buffer);
+char		*gnl_line(char *buffer, int with_n_or_not);
 char		*gnl_join_n_free(char *src, char *buffer, size_t b);
 char		*gnl_read_file(int fd, char *src);
 

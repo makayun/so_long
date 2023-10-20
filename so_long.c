@@ -12,27 +12,26 @@
 
 #include "so_long.h"
 
-int kill_it_w_fire(t_data *data)
+int kill_it_w_fire(t_data *data, t_map  *map)
 {
+    size_t i;
+
+    i = 0;
     mlx_destroy_window(data -> mlx, data ->win);
     mlx_destroy_display(data -> mlx);
     free (data -> mlx);
+    while (i < map->blocks_y)
+        free(map->map[i++]);
     exit (0);
     return (0);
 }
 
-int key_handle(int keysym, t_data *data)
+int key_handle(int keysym, t_data *data, t_map *map)
 {
     ft_printf("Pressed key: %d\n", keysym);
     if (keysym == XK_Escape)
-        kill_it_w_fire(data);
+        kill_it_w_fire(data, map);
     return (0);
-}
-
-void map_read(t_map *map) // complete me!!!
-{
-    map -> blocks_x = 10;
-    map -> blocks_y = 1;
 }
 
 void    map_render(t_map *map, t_data *data)
@@ -65,11 +64,10 @@ int main(int argc, char **argv)
         return (free (data.mlx), MLX_ERROR);
     if((background.img = mlx_xpm_file_to_image(data.mlx, "./assets/background", &background.width, &background.height)))
         mlx_put_image_to_window(data.mlx, data.win, background.img, 0, 0);
-    map_read(&map); // complete later
     map_render(&map, &data);
     mlx_key_hook (data.win, key_handle, &data);
     mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &kill_it_w_fire, &data);
     mlx_loop(data.mlx);
-    kill_it_w_fire(&data);
+    kill_it_w_fire(&data, &map);
     return (0);        
 }

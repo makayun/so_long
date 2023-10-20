@@ -17,53 +17,68 @@ int    check_input(int argc)
     if (argc <= 1)
     {
         ft_printf("Please, choose any map and try again");
-        exit (0);
-        return (0);
+        exit (MLX_ERROR);
+        return (MLX_ERROR);
     }
     else if (argc > 2)
     {
         ft_printf("Too much arguments, try again!");
-        exit (0);
-        return (0);
+        exit (MLX_ERROR);
+        return (MLX_ERROR);
     }
     else
-        return (1);
+        return (0);
 }
 
-int	check_map_width(t_map *map, char *filename)
+int	check_map_height(t_map *map, char *filename)
 {
 	int		fd;
 	char	*line;
-	size_t	lenght;
 
+	map->blocks_y = 0;
 	fd = open (filename, O_RDONLY);
-	line = get_next_line(fd);
-	lenght = ft_strlen(line);
-	map -> blocks_x = 1;
-	ft_printf ("%s", line);
+	while ((line = get_next_line(fd, 1)))
+		map->blocks_y++;
+	close (fd);
 	free (line);
-	while (1)
+	if (map->blocks_y <= 2)
 	{
-		line = get_next_line(fd);
-		map -> blocks_x += 1;
-		if (strchr(line, '\n') && lenght != ft_strlen(line))
-			return (1);
-		ft_printf ("%s", line);
-		if (!strchr(line, '\n'))
-			break ;
-		lenght = ft_strlen(line);
-		free (line);
+		ft_printf ("The map has too few lines, please try another one");
+		exit (MLX_ERROR);
+		return (MLX_ERROR);
 	}
-	map -> blocks_y = lenght - 1;
+	return (0);
+}
+
+int	check_map_width (t_map *map, char *filename)
+{
+	int			fd;
+	size_t		i;
+	size_t		lenght;
+
+	i = 0;
+	lenght = 0;
+	map->map = ft_calloc((map->blocks_y + 1), sizeof(char *));
+	fd = open (filename, O_RDONLY);
+	map->map[i] = get_next_line(fd, 0);
+	lenght = ft_strlen (map->map[i]);
+	i++;
+	while (i < map->blocks_y || (map->map[i]))
+	{
+		map->map[i] = get_next_line(fd, 0);
+		if (lenght != ft_strlen (map->map[i]))
+			return (1);
+		lenght = ft_strlen (map->map[i]);
+		i++;
+	}
+	map->blocks_x = lenght;
+	close(fd);
 	return (0);
 }
 
 void	run_checks(int argc, t_map *map, char *filename)
 {
 	check_input (argc);
-	if (check_map_width (map, filename) == MLX_ERROR)
-	{
-		ft_printf ("Invalid map, try again!");
-		exit (0);
-	}
+	check_map_height (map, filename);
+	check_map_width (map, filename);
 }
