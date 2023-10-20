@@ -18,6 +18,7 @@ endif
 
 FILES = so_long \
 		run_checks \
+		frees \
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))

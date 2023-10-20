@@ -46,11 +46,13 @@ typedef struct s_map {
     size_t  blocks_y;
 }               t_map;
 
-int     kill_it_w_fire(t_data *data, t_map  *map);
+void    kill_it_w_fire(t_data *data, t_map  *map);
+void    map_free(t_map *map);
 int     key_handle(int keysym, t_data *data, t_map *map);
 void    map_render(t_map *map, t_data *data);
 int     check_input(int argc);
 int	    check_map_width(t_map *map, char *filename);
+int	    check_map_width (t_map *map, char *filename);
 void	run_checks(int argc, t_map *map, char *filename);
 
 #endif
