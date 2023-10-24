@@ -20,6 +20,7 @@ FILES = so_long \
 		run_checks \
 		frees \
 		map_init \
+		utils \
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))

@@ -30,7 +30,6 @@ int	check_map_content(t_map *map)
 {
 	size_t		j;
 	char		line[map->blocks_x];
-	char		whole_map[map->blocks_x * map->blocks_y];
 
 	j = 0;
 	ft_strcpy(line, map->map[0]);

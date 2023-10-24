@@ -12,16 +12,6 @@
 
 #include "so_long.h"
 
-size_t	len_till_char(char *str, int c)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != (char)c && str[i])
-		i++;
-	return (i);
-}
-
 int	check_input(int argc)
 {
 	if (argc <= 1)
@@ -40,9 +30,8 @@ int	check_input(int argc)
 		return (0);
 }
 
-int	check_map_size(t_map *map, char *filename)
+int	check_map_size(t_map *map, char *filename, int fd)
 {
-	int		fd;
 	char	*line;
 
 	fd = open (filename, O_RDONLY);
@@ -64,14 +53,16 @@ int	check_map_size(t_map *map, char *filename)
 		}
 		map->blocks_x = ft_strlen(line);
 	}
-	close (fd);
 	return (0);
 }
 
 int	run_checks(int argc, t_map *map, char *filename)
 {
+    int fd;
+
 	check_input (argc);
-	if ((check_map_size (map, filename)) == MLX_ERROR)
+    fd = open(filename, O_RDONLY);
+	if ((check_map_size (map, filename, fd)) == MLX_ERROR)
 		return (ft_printf ("Wrong map, check lines' lenght"), MLX_ERROR);
 	if (map->blocks_x < 5 || map->blocks_y < 3)
 		return ((ft_printf ("The map is too small")), MLX_ERROR);

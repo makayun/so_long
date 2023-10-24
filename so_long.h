@@ -65,5 +65,6 @@ int		check_input(int argc);
 int		check_map_size(t_map *map, char *filename);
 int		check_map_content(t_map *map);
 int		run_checks(int argc, t_map *map, char *filename);
+size_t	len_till_char(char *str, int c);
 
 #endif
