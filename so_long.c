@@ -6,25 +6,11 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:08 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/24 15:13:28 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:51:44 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int map_read(t_map *map, char *filename)
-{
-	int     fd;
-	size_t  i;
-
-	map->map = (char **)ft_calloc((map->blocks_y) + 1, sizeof(char *));
-	fd = open(filename, O_RDONLY);
-	i = 0;
-	while (i < map->blocks_y)
-		map->map[i++] = get_next_line(fd, 0);
-	close (fd);
-	return (0);
-}
 
 int key_handle(int keysym, t_data *data)
 {
@@ -73,8 +59,7 @@ int	main(int argc, char **argv)
 		return (free (data.mlx), MLX_ERROR);
 	if((background.img = mlx_xpm_file_to_image(data.mlx, "./assets/background", &background.width, &background.height)))
 		mlx_put_image_to_window(data.mlx, data.win, background.img, 0, 0);
-	map_read(&data.map, argv[1]);
-	if (check_map_content(&data.map) != MLX_ERROR)
+	if (map_init(&data.map, argv[1]) != MLX_ERROR)
 		map_render(&data.map, &data);
 	mlx_key_hook (data.win, key_handle, &data);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &kill_it_w_fire, &data);

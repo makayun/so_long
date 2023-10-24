@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/24 15:13:08 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:58:43 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,17 @@ typedef struct s_data {
 	size_t	canvas_y;
 }				t_data;
 
+typedef struct s_position {
+	size_t	x;
+	size_t	y;
+}				t_position;
+
 int		kill_it_w_fire(t_data *data);
 void	map_free(t_map *map);
 int		key_handle(int keysym, t_data *data);
 void	map_render(t_map *map, t_data *data);
+int		map_init(t_map *map, char *filename);
+int		check_map_content(t_map *map);
 int		check_input(int argc);
 int		check_map_size(t_map *map, char *filename);
 int		check_map_content(t_map *map);

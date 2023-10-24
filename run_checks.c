@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:35:24 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/24 15:35:51 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:45:27 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,6 @@ int	check_map_size(t_map *map, char *filename)
 		map->blocks_x = ft_strlen(line);
 	}
 	close (fd);
-	return (0);
-}
-
-int	check_map_content(t_map *map)
-{
-	size_t		j;
-	char		line[map->blocks_x];
-	char		whole_map[map->blocks_x * map->blocks_y];
-
-	j = 0;
-	ft_strcpy(line, map->map[0]);
-	while (line[j])
-		if (line[j++] != '1')
-			return (MLX_ERROR);
-	j = open("./map1.ber", O_RDONLY);
-	read (j, whole_map, 512);
-	if (!ft_strchr(whole_map, '0') || !ft_strchr(whole_map, '1') || !ft_strchr(whole_map, 'C'))
-		return (MLX_ERROR);
-	close (j);
-	j = 0;
-	ft_strcpy(line, map->map[(map->blocks_y) - 1]);
-	while (line[j])
-		if (line[j++] != '1')
-			return (MLX_ERROR);
 	return (0);
 }
 
