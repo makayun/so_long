@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:47:40 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/24 13:53:13 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:12:23 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	map_free(t_map *map)
 	i = 0;
 	while (i < map->blocks_y)
 		free(map->map[i++]);
+	free(map->map);
 	exit (0);
 }

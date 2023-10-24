@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:08 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/24 13:53:02 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:13:28 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,52 +34,30 @@ int key_handle(int keysym, t_data *data)
 	return (0);
 }
 
-// void    map_render(t_map *map, t_data *data)
-// {
-//     size_t  canvas_x;
-//     size_t  canvas_y;
-//     size_t  i;
-//     t_image block;
-
-//     canvas_x = (WIDTH - BLOCK_SIDE * map -> blocks_x) / 2;
-//     canvas_y = (HEIGHT - BLOCK_SIDE * map -> blocks_y) / 2;
-//     i = 0;
-//     if ((block.img = mlx_xpm_file_to_image(data -> mlx, "./assets/block", &block.width, &block.height)))
-//     {
-//         while (i < map -> blocks_x)
-//             mlx_put_image_to_window(data -> mlx, data -> win, block.img, (canvas_x + (i++ * BLOCK_SIDE)), canvas_y);
-//     }
-// }
-
 void    map_render(t_map *map, t_data *data)
 {
-	size_t	canvas_x;
-	size_t	canvas_y;
 	size_t	i;
 	size_t	j;
 	t_image	block;
-	char	*line;
+	char	line[map->blocks_x];
 
-	canvas_x = (WIDTH - BLOCK_SIDE * map -> blocks_x) / 2;
-	canvas_y = (HEIGHT - BLOCK_SIDE * map -> blocks_y) / 2;
+	data->canvas_x = (WIDTH - BLOCK_SIDE * map->blocks_x) / 2;
+	data->canvas_y = (HEIGHT - BLOCK_SIDE * map->blocks_y) / 2;
 	i = 0;
 	block.img = mlx_xpm_file_to_image(data -> mlx, "./assets/block", &block.width, &block.height);
-	line = (char *)ft_calloc(map->blocks_x + 1, sizeof(char));
 	while (i < map->blocks_y)
 	{
 		ft_strcpy(line, map->map[i]);
-		// line = ft_strdup(map->map[i]);
 		j = 0;
 		while (j < map->blocks_x)
 		{
 			if (line[j] == '1')
-				mlx_put_image_to_window(data -> mlx, data -> win, block.img, (canvas_x + (j++ * BLOCK_SIDE)), (canvas_y + (i * BLOCK_SIDE)));
+				mlx_put_image_to_window(data->mlx, data->win, block.img, (data->canvas_x + (j++ * BLOCK_SIDE)), (data->canvas_y + (i * BLOCK_SIDE)));
 			else
 				j++;
 		}
 		i++;
 	}
-	free (line);
 }
 
 int	main(int argc, char **argv)
@@ -96,7 +74,8 @@ int	main(int argc, char **argv)
 	if((background.img = mlx_xpm_file_to_image(data.mlx, "./assets/background", &background.width, &background.height)))
 		mlx_put_image_to_window(data.mlx, data.win, background.img, 0, 0);
 	map_read(&data.map, argv[1]);
-	map_render(&data.map, &data);
+	if (check_map_content(&data.map) != MLX_ERROR)
+		map_render(&data.map, &data);
 	mlx_key_hook (data.win, key_handle, &data);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &kill_it_w_fire, &data);
 	mlx_loop(data.mlx);

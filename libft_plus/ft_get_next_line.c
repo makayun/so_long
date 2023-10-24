@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 13:44:15 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/13 13:02:18 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:35:18 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*gnl_line(char *buffer, int with_n_or_not)
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	if ((!(with_n_or_not) && i == 0) || with_n_or_not)
+	if (i == 0 || with_n_or_not)
 		line = (char *)ft_calloc((i + 2), sizeof(char));
 	else
 		line = (char *)ft_calloc((i + 1), sizeof(char));
@@ -57,7 +57,7 @@ char	*gnl_line(char *buffer, int with_n_or_not)
 		line[i] = buffer[i];
 		i++;
 	}
-	if (buffer[i] && buffer[i] == '\n')
+	if (buffer[i] && buffer[i] == '\n' && with_n_or_not)
 		line[i] = '\n';
 	return (line);
 }

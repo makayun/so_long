@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/24 13:53:06 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:13:08 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <stddef.h>
 # include "./mlx/mlx.h"
 # include "./libft_plus/libft.h"
 # include <X11/X.h>
@@ -45,6 +46,8 @@ typedef struct s_data {
 	void	*mlx;
 	void	*win;
 	t_map	map;
+	size_t	canvas_x;
+	size_t	canvas_y;
 }				t_data;
 
 int		kill_it_w_fire(t_data *data);
@@ -52,8 +55,8 @@ void	map_free(t_map *map);
 int		key_handle(int keysym, t_data *data);
 void	map_render(t_map *map, t_data *data);
 int		check_input(int argc);
-int		check_map_width(t_map *map, char *filename);
-int		check_map_width(t_map *map, char *filename);
+int		check_map_size(t_map *map, char *filename);
+int		check_map_content(t_map *map);
 int		run_checks(int argc, t_map *map, char *filename);
 
 #endif
