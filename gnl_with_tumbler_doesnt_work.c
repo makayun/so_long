@@ -45,7 +45,7 @@ char	*gnl_line(char *buffer, int with_n_or_not)
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	if ((!(with_n_or_not) && i == 0) || with_n_or_not)
+	if (i == 0 || with_n_or_not)
 		line = (char *)ft_calloc((i + 2), sizeof(char));
 	else
 		line = (char *)ft_calloc((i + 1), sizeof(char));
@@ -57,7 +57,7 @@ char	*gnl_line(char *buffer, int with_n_or_not)
 		line[i] = buffer[i];
 		i++;
 	}
-	if (buffer[i] && buffer[i] == '\n')
+	if (i == 0 || (buffer[i] && buffer[i] == '\n' && with_n_or_not))
 		line[i] = '\n';
 	return (line);
 }
@@ -102,7 +102,7 @@ char	*gnl_read_file(int fd, char *src)
 		}
 		buffer[bytes_read] = '\0';
 		src = gnl_join_n_free(src, buffer, bytes_read);
-		if (!src || ft_strchr(src, '\n'))
+		if (!src || ft_strchr(buffer, '\n'))
 			break ;
 	}
 	free(buffer);
@@ -132,7 +132,7 @@ char	*get_next_line(int fd, int with_n_or_not)
 //  fd = open("empty", O_RDONLY);
 //  while (1)
 //  {
-//   line = get_next_line(fd, 0);
+//   line = get_next_line(fd);
 //   printf("%s", line);
 //   if (line == NULL)
 //    break ;

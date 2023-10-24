@@ -12,6 +12,16 @@
 
 #include "so_long.h"
 
+size_t len_till_char(char *str, int c)
+{
+    size_t i;
+
+    i = 0;
+    while (str[i] != (char)c && str[i])
+        i++;
+    return (i);
+}
+
 int    check_input(int argc)
 {
     if (argc <= 1)
@@ -30,62 +40,41 @@ int    check_input(int argc)
         return (0);
 }
 
-int	check_map_height(t_map *map, char *filename)
+int    check_map_size(t_map *map, char *filename)
 {
-	int		fd;
-	char	*line;
+    int		fd;
+    char	*line;
 
-	map->blocks_y = 0;
-	fd = open (filename, O_RDONLY);
-	while ((line = get_next_line(fd, 1)))
-		map->blocks_y++;
+    fd = open (filename, O_RDONLY);
+    if ((line = get_next_line(fd, 0)))
+    	map->blocks_x = ft_strlen(line);
+    map -> blocks_y = 1;
+    while (1)
+    {
+		free (line);
+        line = get_next_line(fd, 0);
+        if (line == NULL)
+            break ;
+        map -> blocks_y += 1;
+        if (map->blocks_x != ft_strlen(line))
+		{
+			close (fd);
+            return (free(line), MLX_ERROR);
+		}
+        map->blocks_x = ft_strlen(line);
+    }
 	close (fd);
-	free (line);
-	if (map->blocks_y <= 2)
-	{
-		ft_printf ("The map has too few lines, please try another one");
-		exit (MLX_ERROR);
-		return (MLX_ERROR);
-	}
-	return (0);
+    return (0);
 }
 
-int	check_map_width (t_map *map, char *filename)
-{
-	int			fd;
-	size_t		i;
-	size_t		lenght;
-
-	i = 0;
-	lenght = 0;
-	map->map = ft_calloc((map->blocks_y + 1), sizeof(char *));
-	fd = open (filename, O_RDONLY);
-	map->map[i] = get_next_line(fd, 0);
-	lenght = ft_strlen (map->map[i]);
-	while (++i < map->blocks_y && (map->map[i]))
-	{
-		map->map[i] = get_next_line(fd, 0);
-		if (lenght != ft_strlen (map->map[i]))
-			return (MLX_ERROR);
-		lenght = ft_strlen (map->map[i]);
-	}
-	map->blocks_x = lenght;
-	close(fd);
-	return (0);
-}
-
-void	run_checks(int argc, t_map *map, char *filename)
+int	run_checks(int argc, t_map *map, char *filename)
 {
 	check_input (argc);
-	check_map_height (map, filename);
-	if ((check_map_width (map, filename)) == MLX_ERROR)
-	{
-		ft_printf ("Please, check that all lines in the map have the same lenght!");
-		map_free(map);
-	}
+	if ((check_map_size (map, filename)) == MLX_ERROR)
+		return (ft_printf ("Please, check that all lines in the map have the same lenght!"), MLX_ERROR);
+	if (map->blocks_x < 5 || map->blocks_y < 3)
+		return ((ft_printf ("The map is too small, please try another one")), MLX_ERROR);
 	if (map->blocks_x * BLOCK_SIDE > WIDTH || map->blocks_y * BLOCK_SIDE > HEIGHT)
-	{
-		ft_printf ("The map is too big, please try another one");
-		map_free(map);
-	}
+		return ((ft_printf ("The map is too big, please try another one")), MLX_ERROR);
+    return (ft_printf ("Checks OK\n"), 0);
 }

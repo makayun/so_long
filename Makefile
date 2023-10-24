@@ -35,10 +35,10 @@ $(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
 
 $(LIBFT_LIB):
-	@make -C $(LIBFT_DIR)
+	@make -s -C $(LIBFT_DIR)
 
 $(MLX_LIB):
-	@make -C $(MLX_DIR)
+	@make --quiet -C $(MLX_DIR)
 
 clean:
 	$(RM) $(OBJS) $(NAME)
@@ -47,8 +47,8 @@ fclean: clean
 	@make fclean -C $(LIBFT_DIR)
 	@make clean -C $(MLX_DIR)
 
-re: clean all
+re: clean $(NAME)
 
-fre: fclean all
+fre: fclean $(NAME)
 
 .PHONY: all clean fclean re fre

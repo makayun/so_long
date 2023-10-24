@@ -77,9 +77,10 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 %.o: %.c $(SRCS)
 	$(CC) -c $(CFLAGS) -o $@ $<
+	@printf "*"
 
 all: $(NAME)
-	@echo "Done!"
+	@echo "\nDone!"
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)

@@ -1,45 +1,139 @@
-#include "./libft_plus/libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/08 13:44:15 by mmakagon          #+#    #+#             */
+/*   Updated: 2023/09/24 17:48:19 by mmakagon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct s_map {
-    char    **map;
-    size_t  blocks_x;
-    size_t  blocks_y;
-}               t_map;
+#include "get_next_line.h"
 
-int    check_map(t_map *map, char *filename)
+char	*gnl_next(char *buffer)
 {
-    int fd;
-    char *line;
-    size_t  lenght;
+	char	*line;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
-    fd = open (filename, O_RDONLY);
-    line = get_next_line(fd);
-    lenght = ft_strlen(line);
-    map -> blocks_x = 1;
-    printf ("%s", line);
-    free (line);
-    while (1)
-    {
-        line = get_next_line(fd);
-        map -> blocks_x += 1;
-        if (strchr(line, '\n') && lenght != ft_strlen(line))
-            return (1);
-        printf ("%s", line);
-        if (!strchr(line, '\n'))
-            break ;
-        lenght = ft_strlen(line);
-        free (line);
-    }
-    map -> blocks_y = lenght - 1;
-    return (0);
+	i = 0;
+	j = 0;
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	k = gnl_strlen(buffer) - i + 1;
+	if (!buffer[i] || !k)
+		return (free(buffer), NULL);
+	i++;
+	line = (char *)malloc((k + 1) * (sizeof(char)));
+	while (buffer[i] && j < k)
+		line[j++] = buffer[i++];
+	line[j] = '\0';
+	free(buffer);
+	return (line);
 }
 
-int main(int argc, char **argv)
+char	*gnl_line(char *buffer)
 {
-    t_map   map;
-    if (check_map (&map, argv[1]) == 1)
-        printf ("wrong");
-    else
-        printf ("\n%zu %zu", map.blocks_y, map.blocks_x);
-    return (0);
+	char	*line;
+	size_t	i;
+
+	i = 0;
+	if (!buffer)
+		return (NULL);
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	line = (char *)gnl_calloc((i + 2), sizeof(char));
+	if (!line)
+		return (free(buffer), NULL);
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+	{
+		line[i] = buffer[i];
+		i++;
+	}
+	if (buffer[i] && buffer[i] == '\n')
+		line[i] = '\n';
+	return (line);
 }
+
+char	*gnl_join_n_free(char *src, char *buffer, size_t b)
+{
+	char	*result;
+	size_t	a;
+
+	a = gnl_strlen(src);
+	if (!a && !b)
+		return (free(src), NULL);
+	result = (char *)malloc((a + b + 1) * sizeof(char));
+	if (result)
+	{
+		gnl_strcpy(result, src);
+		gnl_strcat(result, buffer);
+	}
+	else
+		return (free(src), NULL);
+	free(src);
+	result[a + b] = '\0';
+	return (result);
+}
+
+char	*gnl_read_file(int fd, char *src)
+{
+	char	*buffer;
+	int		bytes_read;
+
+	if (!src)
+		src = gnl_calloc(1, 1);
+	buffer = (char *)gnl_calloc((BUFFER_SIZE + 1), sizeof(char));
+	bytes_read = 1;
+	while (bytes_read > 0)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read < 0 || !buffer)
+		{
+			free(buffer);
+			return (free(src), NULL);
+		}
+		buffer[bytes_read] = '\0';
+		src = gnl_join_n_free(src, buffer, bytes_read);
+		if (!src || gnl_strchr(buffer, '\n'))
+			break ;
+	}
+	free(buffer);
+	return (src);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*buffer;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buffer = gnl_read_file(fd, buffer);
+	if (!buffer)
+		return (NULL);
+	line = gnl_line(buffer);
+	buffer = gnl_next(buffer);
+	return (line);
+}
+
+// int main(void)
+// {
+//  int  fd;
+//  char *line;
+
+//  fd = open("empty", O_RDONLY);
+//  while (1)
+//  {
+//   line = get_next_line(fd);
+//   printf("%s", line);
+//   if (line == NULL)
+//    break ;
+//   free(line);
+//  }
+//  return (0);
+// }
