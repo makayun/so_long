@@ -71,14 +71,19 @@ int	main(int argc, char **argv)
 
 	if ((run_checks(argc, &data.map, argv[1])) == MLX_ERROR)
 		exit (MLX_ERROR);
-	if(!(data.mlx = mlx_init()))
+	data.mlx = mlx_init();
+	if (!data.mlx)
 		return (MLX_ERROR);
+	if (map_init(&data.map, argv[1]) == MLX_ERROR)
+	{
+		free (data.mlx);
+		map_free(&data.map);
+	}
 	if(!(data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "come on baby, light my fire")))
 		return (free (data.mlx), MLX_ERROR);
 	if((background.img = mlx_xpm_file_to_image(data.mlx, "./assets/background", &background.width, &background.height)))
 		mlx_put_image_to_window(data.mlx, data.win, background.img, 0, 0);
-	if (map_init(&data.map, argv[1]) != MLX_ERROR)
-		map_render(&data.map, &data);
+	map_render(&data.map, &data);
 	mlx_key_hook (data.win, key_handle, &data);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &kill_it_w_fire, &data);
 	mlx_loop(data.mlx);

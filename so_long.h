@@ -50,21 +50,38 @@ typedef struct s_data {
 	size_t	canvas_y;
 }				t_data;
 
-typedef struct s_position {
-	size_t	x;
-	size_t	y;
-}				t_position;
+typedef struct s_assets {
+	t_image	block;
+	t_image	field;
+	t_image	collectible;
+	t_image	exit;
+	t_image	player;
+}				t_assets;
 
-int		kill_it_w_fire(t_data *data);
-void	map_free(t_map *map);
-int		key_handle(int keysym, t_data *data);
-void	map_render(t_map *map, t_data *data);
-int		map_init(t_map *map, char *filename);
-int		check_map_content(t_map *map);
+// checks
+int		run_checks(int argc, t_map *map, char *filename);
 int		check_input(int argc);
 int		check_map_size(t_map *map, char *filename);
-int		check_map_content(t_map *map);
-int		run_checks(int argc, t_map *map, char *filename);
-size_t	len_till_char(char *str, int c);
+int		check_map_contents(t_map *map, char *filename);
+
+// map init
+int		map_init(t_map *map, char *filename);
+int		map_read(t_map *map, char *filename);
+int		check_walls(t_map *map);
+
+// map render
+void	map_render(t_map *map, t_data *data);
+
+// keys and movement
+int 	key_handle(int keysym, t_data *data);
+
+// finish him!
+int		kill_it_w_fire(t_data *data);
+int		map_free(t_map *map);
+
+
+
+
+
 
 #endif

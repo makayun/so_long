@@ -17,10 +17,12 @@ INCLUDES = -I/usr/include -Imlx -Ilibft_plus
 endif
 
 FILES = so_long \
-		run_checks \
-		frees \
-		map_init \
-		utils \
+		sl_run_checks \
+		sl_frees \
+		sl_map_init \
+		sl_utils \
+		sl_assets_init \
+		sl_movement \
 
 SRCS_DIR = ./
 SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
