@@ -25,13 +25,22 @@ void    map_render(t_map *map, t_data *data)
 	size_t	i;
 	size_t	j;
 	t_image	block;
-	char	line[map->blocks_x];
+	t_image	field;
+	t_image	collectible;
+	t_image	exit;
+	t_image	player;
+	char	*line;
 
 	data->canvas_x = (WIDTH - BLOCK_SIDE * map->blocks_x) / 2;
 	data->canvas_y = (HEIGHT - BLOCK_SIDE * map->blocks_y) / 2;
 	i = 0;
+	line = (char *)ft_calloc(map->blocks_x + 1, sizeof(char));
 	block.img = mlx_xpm_file_to_image(data -> mlx, "./assets/block", &block.width, &block.height);
-	while (i < map->blocks_y)
+	field.img = mlx_xpm_file_to_image(data -> mlx, "./assets/field", &field.width, &field.height);
+	collectible.img = mlx_xpm_file_to_image(data -> mlx, "./assets/collect", &collectible.width, &collectible.height);
+	exit.img = mlx_xpm_file_to_image(data -> mlx, "./assets/exit", &exit.width, &exit.height);
+	player.img = mlx_xpm_file_to_image(data -> mlx, "./assets/player", &player.width, &player.height);
+	while (i < map->blocks_y && map->map[i])
 	{
 		ft_strcpy(line, map->map[i]);
 		j = 0;
@@ -39,11 +48,20 @@ void    map_render(t_map *map, t_data *data)
 		{
 			if (line[j] == '1')
 				mlx_put_image_to_window(data->mlx, data->win, block.img, (data->canvas_x + (j++ * BLOCK_SIDE)), (data->canvas_y + (i * BLOCK_SIDE)));
+			else if (line[j] == '0')
+				mlx_put_image_to_window(data->mlx, data->win, field.img, (data->canvas_x + (j++ * BLOCK_SIDE)), (data->canvas_y + (i * BLOCK_SIDE)));
+			else if (line[j] == 'P')
+				mlx_put_image_to_window(data->mlx, data->win, player.img, (data->canvas_x + (j++ * BLOCK_SIDE)), (data->canvas_y + (i * BLOCK_SIDE)));
+			else if (line[j] == 'C')
+				mlx_put_image_to_window(data->mlx, data->win, collectible.img, (data->canvas_x + (j++ * BLOCK_SIDE)), (data->canvas_y + (i * BLOCK_SIDE)));
+			else if (line[j] == 'E')
+				mlx_put_image_to_window(data->mlx, data->win, exit.img, (data->canvas_x + (j++ * BLOCK_SIDE)), (data->canvas_y + (i * BLOCK_SIDE)));
 			else
 				j++;
 		}
 		i++;
 	}
+	free(line);
 }
 
 int	main(int argc, char **argv)

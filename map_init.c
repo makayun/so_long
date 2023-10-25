@@ -52,12 +52,12 @@ int	map_init(t_map *map, char *filename)
 	whole_map = (char *)ft_calloc(map->blocks_x * map->blocks_y + 1, sizeof(char));
 	fd = open("./map1.ber", O_RDONLY);
 	read (fd, whole_map, map->blocks_x * map->blocks_y);
-	close (fd);
 	if (!ft_strchr(whole_map, '0') || !ft_strchr(whole_map, '1')
 		|| !ft_strchr(whole_map, 'C'))
 		return (free(whole_map), MLX_ERROR);
 	free(whole_map);
 	map_read(map, filename);
 	check_map_content(map);
+	close (fd);
 	return (0);
 }
