@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:45:11 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 15:07:52 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:52:16 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	map_init(t_data *data, char *filename)
 	}
 	data->player.collectibles = 0;
 	find_p_and_c(data);
-	ft_printf("x: %d, y: %d, c: %d", data->player.pos.x, data->player.pos.y, data->player.collectibles);
 	ft_printf("Map OK\n");
 	return (0);
 }

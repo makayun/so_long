@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:48:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 14:10:41 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:51:55 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	map_render(t_map *map, t_data *data, t_assets *assets)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 	t_position	pos;
 
 	i = 0;
