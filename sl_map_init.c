@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:45:11 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 11:41:44 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:07:52 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	map_read(t_map *map, char *filename)
 {
-	size_t	i;
+	int		i;
 	int		fd;
 
 	map->map = (char **)ft_calloc((map->blocks_y) + 1, sizeof(char *));
@@ -26,13 +26,14 @@ int	map_read(t_map *map, char *filename)
 	i = 0;
 	while (i < map->blocks_y)
 		map->map[i++] = get_next_line(fd, 0);
+	close(fd);
 	return (0);
 }
 
-int check_walls(t_map *map)
+int	check_walls(t_map *map)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -45,18 +46,44 @@ int check_walls(t_map *map)
 	return (0);
 }
 
-int	map_init(t_map *map, char *filename)
+void	find_p_and_c(t_data *data)
 {
-	if (map_read(map, filename) == MLX_ERROR)
+	t_position	pos;
+
+	pos.y = 0;
+	while (pos.y < data->map.blocks_y)
+	{
+		pos.x = 0;
+		while (pos.x < data->map.blocks_x)
+		{
+			if (data->map.map[pos.y][pos.x] == 'P')
+			{
+				data->player.pos.x = pos.x;
+				data->player.pos.y = pos.y;
+			}
+			else if (data->map.map[pos.y][pos.x] == 'C')
+				data->player.collectibles += 1;
+			pos.x++;
+		}
+		pos.y++;
+	}
+}
+
+int	map_init(t_data *data, char *filename)
+{
+	if (map_read(&data->map, filename) == MLX_ERROR)
 	{
 		ft_printf("Map reading error");
 		return (MLX_ERROR);
 	}
-	if (check_walls(map) == MLX_ERROR)
+	if (check_walls(&data->map) == MLX_ERROR)
 	{
 		ft_printf("Check the walls on your map!");
 		return (MLX_ERROR);
 	}
+	data->player.collectibles = 0;
+	find_p_and_c(data);
+	ft_printf("x: %d, y: %d, c: %d", data->player.pos.x, data->player.pos.y, data->player.collectibles);
 	ft_printf("Map OK\n");
 	return (0);
 }

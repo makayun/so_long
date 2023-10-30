@@ -1,7 +1,85 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sl_movement.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/30 13:11:13 by mmakagon          #+#    #+#             */
+/*   Updated: 2023/10/30 15:38:41 by mmakagon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-// int go_right(t_map *map, t_position pos)
-// {
-    
-// }
+void	move_right(t_player *player, t_map *map, t_data *data, t_assets *assets)
+{
+	t_position	pos;
 
+	pos.x = data->canvas_x + player->pos.x * BLOCK_SIDE;
+	pos.y = data->canvas_y + player->pos.y * BLOCK_SIDE;
+	if (map->map[player->pos.y][player->pos.x + 1] != '1')
+	{
+		if (map->map[player->pos.y][player->pos.x + 1] == 'C')
+			player->collectibles--;
+		put_asset(data, assets, pos, '0');
+		pos.x = data->canvas_x + (player->pos.x + 1) * BLOCK_SIDE;
+		put_asset(data, assets, pos, 'P');
+		map->map[player->pos.y][player->pos.x] = '0';
+		map->map[player->pos.y][++player->pos.x] = 'P';
+	}
+}
+
+void	move_left(t_player *player, t_map *map, t_data *data, t_assets *assets)
+{
+	t_position	pos;
+
+	pos.x = data->canvas_x + player->pos.x * BLOCK_SIDE;
+	pos.y = data->canvas_y + player->pos.y * BLOCK_SIDE;
+	if (map->map[player->pos.y][player->pos.x - 1] != '1')
+	{
+		if (map->map[player->pos.y][player->pos.x - 1] == 'C')
+			player->collectibles--;
+		put_asset(data, assets, pos, '0');
+		pos.x = data->canvas_x + (player->pos.x - 1) * BLOCK_SIDE;
+		put_asset(data, assets, pos, 'P');
+		map->map[player->pos.y][player->pos.x] = '0';
+		map->map[player->pos.y][--player->pos.x] = 'P';
+	}
+}
+
+void	move_up(t_player *player, t_map *map, t_data *data, t_assets *assets)
+{
+	t_position	pos;
+
+	pos.x = data->canvas_x + player->pos.x * BLOCK_SIDE;
+	pos.y = data->canvas_y + player->pos.y * BLOCK_SIDE;
+	if (map->map[player->pos.y - 1][player->pos.x] != '1')
+	{
+		if (map->map[player->pos.y - 1][player->pos.x] == 'C')
+			player->collectibles--;
+		put_asset(data, assets, pos, '0');
+		pos.y = data->canvas_y + (player->pos.y - 1) * BLOCK_SIDE;
+		put_asset(data, assets, pos, 'P');
+		map->map[player->pos.y][player->pos.x] = '0';
+		map->map[--player->pos.y][player->pos.x] = 'P';
+	}
+}
+
+void	move_down(t_player *player, t_map *map, t_data *data, t_assets *assets)
+{
+	t_position	pos;
+
+	pos.x = data->canvas_x + player->pos.x * BLOCK_SIDE;
+	pos.y = data->canvas_y + player->pos.y * BLOCK_SIDE;
+	if (map->map[player->pos.y + 1][player->pos.x] != '1')
+	{
+		if (map->map[player->pos.y + 1][player->pos.x] == 'C')
+			player->collectibles--;
+		put_asset(data, assets, pos, '0');
+		pos.y = data->canvas_y + (player->pos.y + 1) * BLOCK_SIDE;
+		put_asset(data, assets, pos, 'P');
+		map->map[player->pos.y][player->pos.x] = '0';
+		map->map[++player->pos.y][player->pos.x] = 'P';
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 13:00:46 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:42:24 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,9 @@ typedef struct s_image {
 
 typedef struct s_map {
 	char	**map;
-	size_t	blocks_x;
-	size_t	blocks_y;
+	int		blocks_x;
+	int		blocks_y;
 }				t_map;
-
-typedef struct s_data {
-	void	*mlx;
-	void	*win;
-	t_map	map;
-	size_t	canvas_x;
-	size_t	canvas_y;
-}				t_data;
 
 typedef struct s_assets {
 	t_image	block;
@@ -59,9 +51,24 @@ typedef struct s_assets {
 }				t_assets;
 
 typedef struct s_position {
-	size_t	x;
-	size_t	y;
+	int		x;
+	int		y;
 }				t_position;
+
+typedef struct s_player {
+	t_position	pos;
+	int			collectibles;
+}				t_player;
+
+typedef struct s_data {
+	void		*mlx;
+	void		*win;
+	t_map		map;
+	t_assets	assets;
+	t_player	player;
+	int			canvas_x;
+	int			canvas_y;
+}				t_data;
 
 // checks
 int		run_checks(int argc, t_map *map, char *filename);
@@ -70,7 +77,7 @@ int		check_map_size(t_map *map, char *filename);
 int		check_map_contents(t_map *map, char *filename);
 
 // map init
-int		map_init(t_map *map, char *filename);
+int		map_init(t_data *data, char *filename);
 int		map_read(t_map *map, char *filename);
 int		check_walls(t_map *map);
 
@@ -83,14 +90,13 @@ void	put_asset(t_data *data, t_assets *assets, t_position pos, char c);
 
 // keys and movement
 int 	key_handle(int keysym, t_data *data);
+void	move_right(t_player *player, t_map *map, t_data *data, t_assets *assets);
+void	move_left(t_player *player, t_map *map, t_data *data, t_assets *assets);
+void	move_up(t_player *player, t_map *map, t_data *data, t_assets *assets);
+void	move_down(t_player *player, t_map *map, t_data *data, t_assets *assets);
 
 // finish him!
 int		kill_it_w_fire(t_data *data);
 int		map_free(t_map *map);
-
-
-
-
-
 
 #endif
