@@ -58,6 +58,11 @@ typedef struct s_assets {
 	t_image	player;
 }				t_assets;
 
+typedef struct s_position {
+	size_t	x;
+	size_t	y;
+}				t_position;
+
 // checks
 int		run_checks(int argc, t_map *map, char *filename);
 int		check_input(int argc);

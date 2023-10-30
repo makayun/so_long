@@ -80,10 +80,11 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 	@printf "*"
 
 all: $(NAME)
-	@echo "\nDone!"
+	@echo "\nLIBFT done!"
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
+	ranlib $(NAME)
 
 clean:
 	$(RM) $(OBJS)

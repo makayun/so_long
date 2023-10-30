@@ -46,6 +46,7 @@ $(OBJ_DIR)/%.o: %.c
 	printf "*"
 
 $(NAME)	: $(OBJ)
+	@echo 
 	ar -r $(NAME) $(OBJ)
 	ranlib $(NAME)
 	cp $(NAME) $(NAME_UNAME)
