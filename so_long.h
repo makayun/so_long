@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/24 15:58:43 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:00:46 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_assets {
 	t_image	block;
 	t_image	field;
 	t_image	collectible;
-	t_image	exit;
+	t_image	ext;
 	t_image	player;
 }				t_assets;
 
@@ -74,8 +74,12 @@ int		map_init(t_map *map, char *filename);
 int		map_read(t_map *map, char *filename);
 int		check_walls(t_map *map);
 
+// assets init
+void 	assets_init(t_assets *assets, t_data *data);
+
 // map render
-void	map_render(t_map *map, t_data *data);
+void    map_render(t_map *map, t_data *data, t_assets *assets);
+void	put_asset(t_data *data, t_assets *assets, t_position pos, char c);
 
 // keys and movement
 int 	key_handle(int keysym, t_data *data);

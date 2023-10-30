@@ -20,6 +20,7 @@ FILES = so_long \
 		sl_run_checks \
 		sl_frees \
 		sl_map_init \
+		sl_map_render \
 		sl_utils \
 		sl_assets_init \
 		sl_movement \
