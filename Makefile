@@ -36,8 +36,9 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
+$(NAME): so_long.h $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(MLX_FLAGS)
+	@echo "Game compiled"
 
 $(LIBFT_LIB):
 	@make -s -C $(LIBFT_DIR)

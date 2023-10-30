@@ -82,7 +82,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 all: $(NAME)
 	@echo "\nLIBFT done!"
 
-$(NAME): $(OBJS)
+$(NAME): libft.h $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 	ranlib $(NAME)
 
