@@ -6,13 +6,13 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:11:13 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 11:44:53 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:17:38 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	move_right(t_player *player, t_map *map, t_data *data, t_assets *assets)
+void	move_rght(t_player *player, t_map *map, t_data *data, t_assets *assets)
 {
 	t_position	pos;
 

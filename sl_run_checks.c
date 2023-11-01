@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:35:24 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 14:09:07 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:54:23 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,19 @@ int	check_map_contents(t_map *map, char *filename)
 	return (check);
 }
 
-int	run_checks(int argc, t_map *map, char *filename)
+int	run_checks(int argc, t_data *data, char *filename)
 {
 	check_input (argc);
-	if ((check_map_size (map, filename)) == MLX_ERROR)
+	if ((check_map_size (&data->map, filename)) == MLX_ERROR)
 		return (ft_printf ("Wrong map, check lines' lenght"), MLX_ERROR);
-	if (map->blocks_x < 5 || map->blocks_y < 3)
+	if (data->map.blocks_x < 5 || data->map.blocks_y < 3)
 		return ((ft_printf ("The map is too small")), MLX_ERROR);
-	if (map->blocks_x * BLOCK_SIDE > WIDTH
-		|| map->blocks_y * BLOCK_SIDE > HEIGHT)
+	if (data->map.blocks_x * BLOCK_SIDE > WIDTH
+		|| data->map.blocks_y * BLOCK_SIDE > HEIGHT)
 		return ((ft_printf ("The map is too big")), MLX_ERROR);
-	if (check_map_contents(map, filename) == MLX_ERROR)
+	if (check_map_contents(&data->map, filename) == MLX_ERROR)
 		return ((ft_printf ("Something is missing in the map!")), MLX_ERROR);
+	if (map_init(data, filename) == MLX_ERROR)
+		return (map_free(&data->map), MLX_ERROR);
 	return (ft_printf ("Checks OK\n"), 0);
 }

@@ -6,32 +6,11 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:48:16 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 15:51:55 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:55:59 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	map_render(t_map *map, t_data *data, t_assets *assets)
-{
-	int			i;
-	int			j;
-	t_position	pos;
-
-	i = 0;
-	assets_init(assets, data);
-	while (i < map->blocks_y && map->map[i])
-	{
-		j = 0;
-		while (j < map->blocks_x)
-		{
-			pos.x = data->canvas_x + j * BLOCK_SIDE;
-			pos.y = data->canvas_y + i * BLOCK_SIDE;
-			put_asset (data, assets, pos, map->map[i][j++]);
-		}
-		i++;
-	}
-}
 
 void	put_asset(t_data *data, t_assets *assets, t_position pos, char c)
 {
@@ -53,4 +32,25 @@ void	put_asset(t_data *data, t_assets *assets, t_position pos, char c)
 	else
 		mlx_put_image_to_window(data->mlx,
 			data->win, assets->block.img, pos.x, pos.y);
+}
+
+void	map_render(t_map *map, t_data *data, t_assets *assets)
+{
+	int			i;
+	int			j;
+	t_position	pos;
+
+	i = 0;
+	assets_init(assets, data);
+	while (i < map->blocks_y && map->map[i])
+	{
+		j = 0;
+		while (j < map->blocks_x)
+		{
+			pos.x = data->canvas_x + j * BLOCK_SIDE;
+			pos.y = data->canvas_y + i * BLOCK_SIDE;
+			put_asset (data, assets, pos, map->map[i][j++]);
+		}
+		i++;
+	}
 }

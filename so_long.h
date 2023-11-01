@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 11:31:56 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:17:22 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ typedef struct s_data {
 	t_map		map;
 	t_assets	assets;
 	t_player	player;
-	t_image		background;
+	t_image		bckgrnd;
 	int			canvas_x;
 	int			canvas_y;
 }				t_data;
 
 // checks
-int		run_checks(int argc, t_map *map, char *filename);
+int		run_checks(int argc, t_data *data, char *filename);
 int		check_input(int argc);
 int		check_map_size(t_map *map, char *filename);
 int		check_map_contents(t_map *map, char *filename);
@@ -88,21 +88,21 @@ bool	**visited_allocate(int x, int y, bool **visited);
 void	visited_free(bool **visited, int rows);
 
 // assets init
-void 	assets_init(t_assets *assets, t_data *data);
+void	assets_init(t_assets *assets, t_data *data);
 
 // map render
-void    map_render(t_map *map, t_data *data, t_assets *assets);
+void	map_render(t_map *map, t_data *data, t_assets *assets);
 void	put_asset(t_data *data, t_assets *assets, t_position pos, char c);
 
 // keys and movement
-int 	key_handle(int keysym, t_data *data);
-void	move_right(t_player *player, t_map *map, t_data *data, t_assets *assets);
+int		key_handle(int keysym, t_data *data);
+void	move_rght(t_player *player, t_map *map, t_data *data, t_assets *assets);
 void	move_left(t_player *player, t_map *map, t_data *data, t_assets *assets);
 void	move_up(t_player *player, t_map *map, t_data *data, t_assets *assets);
 void	move_down(t_player *player, t_map *map, t_data *data, t_assets *assets);
 
 // finish him!
-int		kill_it_w_fire(t_data *data);
+int		finish_him(t_data *data);
 int		map_free(t_map *map);
 void	destroy_assets(t_data *data);
 
