@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 13:17:22 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 15:46:56 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <stddef.h>
 # include <stdbool.h>
+# include <math.h>
 # include "./mlx/mlx.h"
 # include "./libft_plus/libft.h"
 # include <X11/X.h>
@@ -59,6 +60,7 @@ typedef struct s_position {
 typedef struct s_player {
 	t_position	pos;
 	int			collectibles;
+	bool		victory;
 }				t_player;
 
 typedef struct s_data {
@@ -82,13 +84,18 @@ int		check_map_contents(t_map *map, char *filename);
 int		map_init(t_data *data, char *filename);
 int		map_read(t_map *map, char *filename);
 int		check_walls(t_map *map);
-void	is_there_the_way(t_data *data);
+
+// check if collectibles and exit are accesible
+int		is_there_the_way(t_data *data);
 bool	find_the_way(int x, int y, bool **visited, t_data *data);
 bool	**visited_allocate(int x, int y, bool **visited);
 void	visited_free(bool **visited, int rows);
 
 // assets init
 void	assets_init(t_assets *assets, t_data *data);
+
+// game init
+int		lets_get_it_started(t_data *data);
 
 // map render
 void	map_render(t_map *map, t_data *data, t_assets *assets);
@@ -101,9 +108,12 @@ void	move_left(t_player *player, t_map *map, t_data *data, t_assets *assets);
 void	move_up(t_player *player, t_map *map, t_data *data, t_assets *assets);
 void	move_down(t_player *player, t_map *map, t_data *data, t_assets *assets);
 
+// victory
+void    victory(t_data *data);
+
 // finish him!
 int		finish_him(t_data *data);
 int		map_free(t_map *map);
-void	destroy_assets(t_data *data);
+void	assets_destroy(t_data *data);
 
 #endif

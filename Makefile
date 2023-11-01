@@ -20,10 +20,11 @@ FILES = so_long \
 		sl_run_checks \
 		sl_frees \
 		sl_map_init \
-		sl_find_the_way \
+		sl_is_there_the_way \
 		sl_map_render \
 		sl_utils \
 		sl_assets_init \
+		sl_victory \
 		sl_movement \
 
 SRCS_DIR = ./

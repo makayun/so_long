@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:35:24 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 12:54:23 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:47:04 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ int	run_checks(int argc, t_data *data, char *filename)
 	if (check_map_contents(&data->map, filename) == MLX_ERROR)
 		return ((ft_printf ("Something is missing in the map!")), MLX_ERROR);
 	if (map_init(data, filename) == MLX_ERROR)
-		return (map_free(&data->map), MLX_ERROR);
+		return (MLX_ERROR);
 	return (ft_printf ("Checks OK\n"), 0);
 }

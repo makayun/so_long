@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:45:11 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 15:52:16 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:38:24 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	find_p_and_c(t_data *data)
 {
 	t_position	pos;
 
+	data->player.victory = false;
 	data->player.collectibles = 0;
 	pos.y = 0;
 	while (pos.y < data->map.blocks_y)
@@ -80,10 +81,11 @@ int	map_init(t_data *data, char *filename)
 	if (check_walls(&data->map) == MLX_ERROR)
 	{
 		ft_printf("Check the walls on your map!");
-		return (MLX_ERROR);
+		return (map_free(&data->map), MLX_ERROR);
 	}
 	find_p_and_c(data);
-	is_there_the_way(data);
+	if (is_there_the_way(data) == MLX_ERROR)
+		return (map_free(&data->map), MLX_ERROR);
 	ft_printf("Map OK\n");
 	return (0);
 }
