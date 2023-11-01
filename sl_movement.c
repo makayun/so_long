@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:11:13 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 15:38:41 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:44:53 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	move_right(t_player *player, t_map *map, t_data *data, t_assets *assets)
 
 	pos.x = data->canvas_x + player->pos.x * BLOCK_SIDE;
 	pos.y = data->canvas_y + player->pos.y * BLOCK_SIDE;
-	if (map->map[player->pos.y][player->pos.x + 1] == 'E' && player->collectibles == 0)
+	if (map->map[player->pos.y][player->pos.x + 1] == 'E'
+			&& player->collectibles == 0)
 		ft_printf("VICTORY");
-	if (map->map[player->pos.y][player->pos.x + 1] != '1' && map->map[player->pos.y][player->pos.x + 1] != 'E')
+	if (map->map[player->pos.y][player->pos.x + 1] != '1'
+		&& map->map[player->pos.y][player->pos.x + 1] != 'E')
 	{
 		if (map->map[player->pos.y][player->pos.x + 1] == 'C')
 			player->collectibles--;
@@ -38,9 +40,11 @@ void	move_left(t_player *player, t_map *map, t_data *data, t_assets *assets)
 
 	pos.x = data->canvas_x + player->pos.x * BLOCK_SIDE;
 	pos.y = data->canvas_y + player->pos.y * BLOCK_SIDE;
-	if (map->map[player->pos.y][player->pos.x - 1] == 'E' && player->collectibles == 0)
+	if (map->map[player->pos.y][player->pos.x - 1] == 'E'
+			&& player->collectibles == 0)
 		ft_printf("VICTORY");
-	if (map->map[player->pos.y][player->pos.x - 1] != '1' && map->map[player->pos.y][player->pos.x - 1] != 'E')
+	if (map->map[player->pos.y][player->pos.x - 1] != '1'
+		&& map->map[player->pos.y][player->pos.x - 1] != 'E')
 	{
 		if (map->map[player->pos.y][player->pos.x - 1] == 'C')
 			player->collectibles--;
@@ -58,9 +62,11 @@ void	move_up(t_player *player, t_map *map, t_data *data, t_assets *assets)
 
 	pos.x = data->canvas_x + player->pos.x * BLOCK_SIDE;
 	pos.y = data->canvas_y + player->pos.y * BLOCK_SIDE;
-	if (map->map[player->pos.y - 1][player->pos.x] == 'E' && player->collectibles == 0)
+	if (map->map[player->pos.y - 1][player->pos.x] == 'E'
+			&& player->collectibles == 0)
 		ft_printf("VICTORY");
-	if (map->map[player->pos.y - 1][player->pos.x] != '1' && map->map[player->pos.y - 1][player->pos.x] != 'E')
+	if (map->map[player->pos.y - 1][player->pos.x] != '1'
+		&& map->map[player->pos.y - 1][player->pos.x] != 'E')
 	{
 		if (map->map[player->pos.y - 1][player->pos.x] == 'C')
 			player->collectibles--;
@@ -78,9 +84,11 @@ void	move_down(t_player *player, t_map *map, t_data *data, t_assets *assets)
 
 	pos.x = data->canvas_x + player->pos.x * BLOCK_SIDE;
 	pos.y = data->canvas_y + player->pos.y * BLOCK_SIDE;
-	if (map->map[player->pos.y + 1][player->pos.x] == 'E' && player->collectibles == 0)
+	if (map->map[player->pos.y + 1][player->pos.x] == 'E'
+			&& player->collectibles == 0)
 		ft_printf("VICTORY");
-	if (map->map[player->pos.y + 1][player->pos.x] != '1' && map->map[player->pos.y + 1][player->pos.x] != 'E')
+	if (map->map[player->pos.y + 1][player->pos.x] != '1'
+			&& map->map[player->pos.y + 1][player->pos.x] != 'E')
 	{
 		if (map->map[player->pos.y + 1][player->pos.x] == 'C')
 			player->collectibles--;

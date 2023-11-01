@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:08 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 15:39:10 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:18:31 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int key_handle(int keysym, t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data		data;
-	t_image		background;
-
+	
 	if ((run_checks(argc, &data.map, argv[1])) == MLX_ERROR)
 		exit (MLX_ERROR);
 	data.mlx = mlx_init();
@@ -45,8 +44,8 @@ int	main(int argc, char **argv)
 	}
 	if(!(data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "come on baby, light my fire")))
 		return (free (data.mlx), MLX_ERROR);
-	if((background.img = mlx_xpm_file_to_image(data.mlx, "./assets/background", &background.width, &background.height)))
-		mlx_put_image_to_window(data.mlx, data.win, background.img, 0, 0);
+	if((data.background.img = mlx_xpm_file_to_image(data.mlx, "./assets/background", &data.background.width, &data.background.height)))
+		mlx_put_image_to_window(data.mlx, data.win, data.background.img, 0, 0);
 	map_render(&data.map, &data, &data.assets);
 	mlx_key_hook (data.win, key_handle, &data);
 	mlx_hook(data.win, DestroyNotify, StructureNotifyMask, &kill_it_w_fire, &data);

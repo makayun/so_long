@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 15:42:24 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:31:56 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_data {
 	t_map		map;
 	t_assets	assets;
 	t_player	player;
+	t_image		background;
 	int			canvas_x;
 	int			canvas_y;
 }				t_data;
@@ -83,8 +84,8 @@ int		map_read(t_map *map, char *filename);
 int		check_walls(t_map *map);
 void	is_there_the_way(t_data *data);
 bool	find_the_way(int x, int y, bool **visited, t_data *data);
-bool	**visited_allocate(int x, int y);
-void	visited_free(bool **visited);
+bool	**visited_allocate(int x, int y, bool **visited);
+void	visited_free(bool **visited, int rows);
 
 // assets init
 void 	assets_init(t_assets *assets, t_data *data);
@@ -103,5 +104,6 @@ void	move_down(t_player *player, t_map *map, t_data *data, t_assets *assets);
 // finish him!
 int		kill_it_w_fire(t_data *data);
 int		map_free(t_map *map);
+void	destroy_assets(t_data *data);
 
 #endif
