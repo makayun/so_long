@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:08 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 11:18:31 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:31:01 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int key_handle(int keysym, t_data *data)
 	ft_printf("Pressed key: %d\n", keysym);
 	if (keysym == XK_Escape)
 		kill_it_w_fire(data);
-	else if (keysym == XK_d)
+	else if (keysym == XK_d || keysym == XK_Right)
 		move_right(&data->player, &data->map, data, &data->assets);
-	else if (keysym == XK_a)
+	else if (keysym == XK_a || keysym == XK_Left)
 		move_left(&data->player, &data->map, data, &data->assets);
-	else if (keysym == XK_w)
+	else if (keysym == XK_w || keysym == XK_Up)
 		move_up(&data->player, &data->map, data, &data->assets);
-	else if (keysym == XK_s)
+	else if (keysym == XK_s || keysym == XK_Down)
 		move_down(&data->player, &data->map, data, &data->assets);
 	return (0);
 }

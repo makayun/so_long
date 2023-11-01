@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:45:29 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 11:49:44 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:53:24 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ void	visited_free(bool **visited, int rows)
 	int	i;
 
 	i = 0;
-	while (i < rows && visited[i] != NULL)
-		free (visited[i++]);
-	free (visited);
+	if (visited != NULL)
+	{
+		while (i < rows && visited[i] != NULL)
+			free (visited[i++]);
+		free (visited);
+	}
 }
 
 bool	**visited_allocate(int x, int y, bool **visited)
