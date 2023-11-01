@@ -50,6 +50,7 @@ void	find_p_and_c(t_data *data)
 {
 	t_position	pos;
 
+	data->player.collectibles = 0;
 	pos.y = 0;
 	while (pos.y < data->map.blocks_y)
 	{
@@ -81,8 +82,8 @@ int	map_init(t_data *data, char *filename)
 		ft_printf("Check the walls on your map!");
 		return (MLX_ERROR);
 	}
-	data->player.collectibles = 0;
 	find_p_and_c(data);
+	is_there_the_way(data);
 	ft_printf("Map OK\n");
 	return (0);
 }

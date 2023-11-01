@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stddef.h>
+# include <stdbool.h>
 # include "./mlx/mlx.h"
 # include "./libft_plus/libft.h"
 # include <X11/X.h>
@@ -80,6 +81,10 @@ int		check_map_contents(t_map *map, char *filename);
 int		map_init(t_data *data, char *filename);
 int		map_read(t_map *map, char *filename);
 int		check_walls(t_map *map);
+void	is_there_the_way(t_data *data);
+bool	find_the_way(int x, int y, bool **visited, t_data *data);
+bool	**visited_allocate(int x, int y);
+void	visited_free(bool **visited);
 
 // assets init
 void 	assets_init(t_assets *assets, t_data *data);

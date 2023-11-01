@@ -74,6 +74,7 @@ int	check_map_contents(t_map *map, char *filename)
 	else
 		check = 0;
 	free (whole_map);
+	close (fd);
 	return (check);
 }
 

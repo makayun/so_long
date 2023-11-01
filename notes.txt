@@ -1,3 +1,3 @@
 x = horizontal (columns)
-y = vertical (lines)
+y = vertical (rows)
 
