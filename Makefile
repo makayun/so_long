@@ -18,6 +18,7 @@ endif
 
 FILES = so_long \
 		sl_map_checks \
+		sl_check_input \
 		sl_frees \
 		sl_map_init \
 		sl_is_there_the_way \

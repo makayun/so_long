@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:45:11 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/02 12:18:24 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:46:22 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int	map_init(t_data *data, char *filename)
 {
 	if (map_read(&data->map, filename) == MLX_ERROR)
 	{
-		ft_printf("Map reading error");
+		ft_printf("Error\nMap reading error");
 		return (MLX_ERROR);
 	}
 	if (check_walls(&data->map) == MLX_ERROR)
 	{
-		ft_printf("Check the walls on your map!");
+		ft_printf("Error\nCheck the walls on your map!");
 		return (map_free(&data->map), MLX_ERROR);
 	}
 	find_p_and_c(data);

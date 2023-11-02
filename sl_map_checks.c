@@ -6,29 +6,11 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 12:23:55 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/02 15:29:16 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:48:43 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	check_input(int argc)
-{
-	if (argc <= 1)
-	{
-		ft_printf("Please, choose any map and try again");
-		exit (MLX_ERROR);
-		return (MLX_ERROR);
-	}
-	else if (argc > 2)
-	{
-		ft_printf("Too many arguments, try again!");
-		exit (MLX_ERROR);
-		return (MLX_ERROR);
-	}
-	else
-		return (0);
-}
 
 int	count_columns_and_rows(char *whole_map, t_map *map)
 {
@@ -66,7 +48,7 @@ int	check_map_contents(char *filename, t_map *map)
 	fd = open (filename, O_RDONLY);
 	check = read (fd, whole_map, max_size);
 	close (fd);
-	if (check >= max_size)
+	if (check >= max_size -1)
 		check = -1;
 	else if (!ft_strchr(whole_map, '1') || !ft_strchr(whole_map, 'P')
 		|| !ft_strchr(whole_map, 'C') || !ft_strchr(whole_map, 'E'))
@@ -84,13 +66,13 @@ int	run_checks(int argc, t_data *data, char *filename)
 	check_input (argc);
 	check = check_map_contents(filename, &data->map);
 	if (check == -1)
-		return (ft_printf("The map is too big!"), MLX_ERROR);
+		return (ft_printf("Error\nThe map is too big!\n"), MLX_ERROR);
 	else if (check == -2)
-		return (ft_printf("Something is missing in the map!"), MLX_ERROR);
+		return (ft_printf("Error\nSomething is missing in the map!\n"), MLX_ERROR);
 	else if (check == -3)
-		return (ft_printf("Invalid map, check lines' lenght"), MLX_ERROR);
+		return (ft_printf("Error\nInvalid map, check lines' lenght\n"), MLX_ERROR);
 	else if (check == -4)
-		return (ft_printf("The map starts from a newline symbol"), MLX_ERROR);
+		return (ft_printf("Error\nThe map starts from a newline symbol\n"), MLX_ERROR);
 	if (map_init(data, filename) == MLX_ERROR)
 		return (MLX_ERROR);
 	return (ft_printf ("Checks OK\n"), 0);
