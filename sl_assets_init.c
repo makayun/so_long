@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:42:21 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/10/30 15:54:27 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:02:15 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,6 @@ void	assets_init(t_assets *assets, t_data *data)
 			"./assets/exit", &assets->ext.width, &assets->ext.height);
 	assets->player.img = mlx_xpm_file_to_image(data -> mlx,
 			"./assets/player", &assets->player.width, &assets->player.height);
+	assets->vict1.img = mlx_xpm_file_to_image(data -> mlx,
+			"./assets/vict1", &assets->vict1.width, &assets->vict1.height);
 }

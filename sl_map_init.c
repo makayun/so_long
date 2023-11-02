@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:45:11 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 14:38:24 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:18:24 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	find_p_and_c(t_data *data)
 	t_position	pos;
 
 	data->player.victory = false;
+	data->player.steps = 0;
 	data->player.collectibles = 0;
 	pos.y = 0;
 	while (pos.y < data->map.blocks_y)

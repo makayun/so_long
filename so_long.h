@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 15:46:56 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:29:35 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 typedef struct s_image {
 	void	*img;
-	char	*path;
 	int		width;
 	int		height;
 }				t_image;
@@ -50,6 +49,7 @@ typedef struct s_assets {
 	t_image	collectible;
 	t_image	ext;
 	t_image	player;
+	t_image	vict1;
 }				t_assets;
 
 typedef struct s_position {
@@ -60,6 +60,7 @@ typedef struct s_position {
 typedef struct s_player {
 	t_position	pos;
 	int			collectibles;
+	int			steps;
 	bool		victory;
 }				t_player;
 
@@ -77,8 +78,8 @@ typedef struct s_data {
 // checks
 int		run_checks(int argc, t_data *data, char *filename);
 int		check_input(int argc);
-int		check_map_size(t_map *map, char *filename);
-int		check_map_contents(t_map *map, char *filename);
+int		check_map_contents(char *filename, t_map *map);
+int		count_columns_and_rows(char *whole_map, t_map *map);
 
 // map init
 int		map_init(t_data *data, char *filename);
@@ -109,7 +110,7 @@ void	move_up(t_player *player, t_map *map, t_data *data, t_assets *assets);
 void	move_down(t_player *player, t_map *map, t_data *data, t_assets *assets);
 
 // victory
-void    victory(t_data *data);
+void	victory(t_data *data);
 
 // finish him!
 int		finish_him(t_data *data);

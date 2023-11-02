@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:11:13 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 14:46:36 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:18:33 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	move_rght(t_player *player, t_map *map, t_data *data, t_assets *assets)
 		put_asset(data, assets, pos, 'P');
 		map->map[player->pos.y][player->pos.x] = '0';
 		map->map[player->pos.y][++player->pos.x] = 'P';
+		ft_printf("Steps: %d\n", ++player->steps);
 	}
 }
 
@@ -53,6 +54,7 @@ void	move_left(t_player *player, t_map *map, t_data *data, t_assets *assets)
 		put_asset(data, assets, pos, 'P');
 		map->map[player->pos.y][player->pos.x] = '0';
 		map->map[player->pos.y][--player->pos.x] = 'P';
+		ft_printf("Steps: %d\n", ++player->steps);
 	}
 }
 
@@ -75,6 +77,7 @@ void	move_up(t_player *player, t_map *map, t_data *data, t_assets *assets)
 		put_asset(data, assets, pos, 'P');
 		map->map[player->pos.y][player->pos.x] = '0';
 		map->map[--player->pos.y][player->pos.x] = 'P';
+		ft_printf("Steps: %d\n", ++player->steps);
 	}
 }
 
@@ -97,5 +100,6 @@ void	move_down(t_player *player, t_map *map, t_data *data, t_assets *assets)
 		put_asset(data, assets, pos, 'P');
 		map->map[player->pos.y][player->pos.x] = '0';
 		map->map[++player->pos.y][player->pos.x] = 'P';
+		ft_printf("Steps: %d\n", ++player->steps);
 	}
 }

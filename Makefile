@@ -17,7 +17,7 @@ INCLUDES = -I/usr/include -Imlx -Ilibft_plus
 endif
 
 FILES = so_long \
-		sl_run_checks \
+		sl_map_checks \
 		sl_frees \
 		sl_map_init \
 		sl_is_there_the_way \

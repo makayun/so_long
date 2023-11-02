@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:47:40 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/01 13:26:50 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/02 11:02:49 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	assets_destroy(t_data *data)
 	mlx_destroy_image(data->mlx, data->assets.ext.img);
 	mlx_destroy_image(data->mlx, data->assets.field.img);
 	mlx_destroy_image(data->mlx, data->assets.player.img);
+	mlx_destroy_image(data->mlx, data->assets.vict1.img);
 	mlx_destroy_image(data->mlx, data->bckgrnd.img);
 }
 
