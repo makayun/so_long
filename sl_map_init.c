@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 15:45:11 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/02 15:46:22 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:38:09 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,5 @@ int	map_init(t_data *data, char *filename)
 	find_p_and_c(data);
 	if (is_there_the_way(data) == MLX_ERROR)
 		return (map_free(&data->map), MLX_ERROR);
-	ft_printf("Map OK\n");
 	return (0);
 }

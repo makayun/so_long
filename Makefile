@@ -17,15 +17,11 @@ INCLUDES = -I/usr/include -Imlx -Ilibft_plus
 endif
 
 FILES = so_long \
-		sl_map_checks \
-		sl_check_input \
+		sl_run_checks \
 		sl_frees \
 		sl_map_init \
 		sl_is_there_the_way \
 		sl_map_render \
-		sl_utils \
-		sl_assets_init \
-		sl_victory \
 		sl_movement \
 
 SRCS_DIR = ./

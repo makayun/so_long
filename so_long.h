@@ -6,7 +6,7 @@
 /*   By: mmakagon <mmakagon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:18:12 by mmakagon          #+#    #+#             */
-/*   Updated: 2023/11/02 15:29:35 by mmakagon         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:32:19 by mmakagon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
-# define WIDTH 640
-# define HEIGHT 480
+# define WIDTH 1920
+# define HEIGHT 1080
 
 # define BLOCK_SIDE 40
 
@@ -77,7 +77,7 @@ typedef struct s_data {
 
 // checks
 int		run_checks(int argc, t_data *data, char *filename);
-int		check_input(int argc);
+int		check_input(int argc, char *filename);
 int		check_map_contents(char *filename, t_map *map);
 int		count_columns_and_rows(char *whole_map, t_map *map);
 
